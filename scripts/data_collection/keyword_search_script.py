@@ -19,7 +19,7 @@ def main():
     username = input("Enter O*NET Web Services username: ")
     password = input("Enter O*NET Web Services password: ")
     keywords = ["engineering", "healthcare", "finance", "technology", "education", "marketing", "construction", "management", "science", "design"]
-    output_csv_path = '../../data/processed/keyword_search_results.csv'
+    output_csv_path = 'data/raw/keyword_search_results.csv'
 
     combined_df = perform_keyword_searches(username, password, keywords)
     

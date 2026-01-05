@@ -57,10 +57,10 @@ def plot_keyword_counts(keyword_counts, output_dir):
         plt.close()
 
 def main():
-    keyword_csv_path = '../../data/processed/keyword_search_results.csv'
-    condensed_csv_path = '../../data/processed/condensed_job_details.csv'
-    output_csv_path = '../../data/results/keyword_analysis_results.csv'
-    output_dir = '../../data/results/'
+    keyword_csv_path = 'data/raw/keyword_search_results.csv'
+    condensed_csv_path = 'data/processed/condensed_job_details.csv'
+    output_csv_path = 'data/results/keyword_analysis_results.csv'
+    output_dir = 'data/results/'
 
     keyword_df = load_data(keyword_csv_path)
     condensed_df = load_data(condensed_csv_path)

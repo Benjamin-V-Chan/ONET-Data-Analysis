@@ -8,6 +8,8 @@ If the collector repository is the part of the stack that makes O*NET data usabl
 
 The goal is not merely to produce charts. The goal is to transform structured occupation records into recommendation-ready intelligence. That includes understanding feature coverage, inspecting occupational similarity, engineering text-driven representations, validating schema consistency, generating occupation groupings, and surfacing patterns that can support downstream retrieval, ranking, and explainable AI workflows.
 
+This public version of the repository contains the base architecture for the officially contracted project. This is not the full project as the full contents are privately contracted out.
+
 ---
 
 ## Why This Repository Exists

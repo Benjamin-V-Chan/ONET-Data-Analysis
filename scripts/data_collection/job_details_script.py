@@ -1,8 +1,25 @@
-from onet_data_collector.job_details import fetch_job_details
-from utils import get_user_input
+"""Legacy entry point — kept for backwards compatibility.
 
-username = get_user_input('Enter O*NET Web Services username')
-password = get_user_input('Enter O*NET Web Services password')
-input_csv_path = 'data/raw/keyword_search_results.csv'
-output_json_path = 'data/raw/job_details.json'
-fetch_job_details(username, password, input_csv_path, output_json_path)
+Prefer the CLI:  ``onet-analyze collect`` (which runs this stage too).
+
+Fetches full occupation details for the codes in
+``data/raw/keyword_search_results.csv`` and writes ``data/raw/job_details.json``.
+"""
+
+from __future__ import annotations
+
+from onet_data_collector import fetch_job_details, resolve_credentials
+
+from onet_analysis.paths import default_paths
+
+
+def main() -> None:
+    paths = default_paths().make_all()
+    username, password = resolve_credentials(allow_prompt=True)
+    fetch_job_details(
+        username, password, str(paths.keyword_search_csv), str(paths.job_details_json)
+    )
+
+
+if __name__ == "__main__":
+    main()

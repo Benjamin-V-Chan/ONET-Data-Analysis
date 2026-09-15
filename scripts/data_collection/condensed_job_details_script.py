@@ -1,5 +1,22 @@
-from onet_data_collector.condensed_job_details import condense_job_details
+"""Legacy entry point — kept for backwards compatibility.
 
-input_json_path = 'data/raw/job_details.json'
-output_csv_path = 'data/processed/condensed_job_details.csv'
-condense_job_details(input_json_path, output_csv_path)
+Prefer the CLI:  ``onet-analyze collect`` (which runs this stage too).
+
+Flattens ``data/raw/job_details.json`` into
+``data/processed/condensed_job_details.csv``.
+"""
+
+from __future__ import annotations
+
+from onet_data_collector import condense_job_details
+
+from onet_analysis.paths import default_paths
+
+
+def main() -> None:
+    paths = default_paths().make_all()
+    condense_job_details(str(paths.job_details_json), str(paths.condensed_csv))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,29 +1,27 @@
-import os
-import pandas as pd
-from onet_data_collector.keyword_search import keyword_search
+"""Legacy entry point — kept for backwards compatibility.
 
-def save_results_to_csv(df, output_csv_path):
-    os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
+Prefer the CLI:  ``onet-analyze collect <keywords...>``
 
-    df.to_csv(output_csv_path, index=False)
-    print(f"Keyword search results saved to {output_csv_path}")
+This shim delegates to :mod:`onet_analysis.collect` so behaviour stays in one
+place. It runs only the keyword-search stage and writes
+``data/raw/keyword_search_results.csv``.
+"""
 
-def perform_keyword_searches(username, password, keywords):
-    combined_df = pd.DataFrame()
-    for keyword in keywords:
-        df = keyword_search(username, password, keyword)
-        combined_df = pd.concat([combined_df, df], ignore_index=True)
-    return combined_df
+from __future__ import annotations
 
-def main():
-    username = input("Enter O*NET Web Services username: ")
-    password = input("Enter O*NET Web Services password: ")
-    keywords = ["engineering", "healthcare", "finance", "technology", "education", "marketing", "construction", "management", "science", "design"]
-    output_csv_path = 'data/raw/keyword_search_results.csv'
+from onet_data_collector import keyword_search_many, resolve_credentials
 
-    combined_df = perform_keyword_searches(username, password, keywords)
-    
-    save_results_to_csv(combined_df, output_csv_path)
+from onet_analysis.collect import DEFAULT_KEYWORDS
+from onet_analysis.paths import default_paths
+
+
+def main() -> None:
+    paths = default_paths().make_all()
+    username, password = resolve_credentials(allow_prompt=True)
+    df = keyword_search_many(username, password, DEFAULT_KEYWORDS)
+    df.to_csv(paths.keyword_search_csv, index=False)
+    print(f"Keyword search results saved to {paths.keyword_search_csv}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onet_analysis"
+version = "0.2.0"
+description = "Analytics and intelligence layer for O*NET occupational data (EDA, clustering, keyword attribution)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Benjamin Chan" }]
+keywords = ["onet", "occupations", "clustering", "tf-idf", "career-data", "eda"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "pandas>=1.3",
+    "numpy>=1.21",
+    "scikit-learn>=1.1",
+    "matplotlib>=3.5",
+    # The collector (sibling repo) provides the ETL stage. Install it from the
+    # local checkout for development: `pip install -e ../ONET-Data-Collector`,
+    # or from Git (pinned below in requirements.txt).
+    "onet_data_collector>=0.2",
+]
+
+[project.optional-dependencies]
+plots = ["seaborn>=0.12"]
+dev = ["pytest>=7", "seaborn>=0.12"]
+
+[project.scripts]
+onet-analyze = "onet_analysis.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Benjamin-V-Chan/data-science-onet"
+Repository = "https://github.com/Benjamin-V-Chan/data-science-onet"
+
+[tool.setuptools.packages.find]
+include = ["onet_analysis*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

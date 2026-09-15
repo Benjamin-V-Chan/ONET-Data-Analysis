@@ -129,3 +129,5 @@ data/raw/
 data/processed/
 data/results/
 results/
+# Personal notes (project brief + deep dive)
+notes/
